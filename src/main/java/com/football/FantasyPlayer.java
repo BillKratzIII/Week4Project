@@ -96,6 +96,10 @@ public class FantasyPlayer {
 		}
 	}
 
+	public String getPlayerID() {
+		return playerID;
+	}
+
 	public void setFlexEligible(boolean flexEligible) {
 		this.flexEligible = flexEligible;
 	}
