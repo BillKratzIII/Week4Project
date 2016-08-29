@@ -5,16 +5,21 @@ import java.util.Scanner;
 public class FantasyFootball {
 
 	public static void main(String[] args) {
+		// declare variables
 		Scanner sc = new Scanner(System.in);
 		boolean continueApp = true;
 		String menuSelection = null;
-		// TODO Auto-generated method stub
+
+		// connect and load info from DB
 		DAO.refreshFromDB();
-		do{
+
+		// loop menu options as long as user wishes to continue
+		do {
+			System.out.println();
 			System.out.println("What would you like to do?");
 			printMenu();
 			menuSelection = sc.nextLine();
-			
+
 			switch (menuSelection) {
 			case "1":
 				DAO.readFromDB();
@@ -35,18 +40,20 @@ public class FantasyFootball {
 			default:
 				System.out.println("Not a valid selection, please try again.");
 				break;
-			}
-				
-			
-		}while(continueApp);
-	}
-	
-	public static void printMenu(){
+			}// switch
+
+		} while (continueApp);
+		//close scanner
+		sc.close();
+	}// main()
+
+	// display menu options to the user
+	public static void printMenu() {
 		System.out.println("1 - display all players");
 		System.out.println("2 - add a player");
 		System.out.println("3 - delete a player");
 		System.out.println("4 - modify a player");
 		System.out.println("5 - exit program");
-	}
+	}// printMenu()
 
-}
+}// class

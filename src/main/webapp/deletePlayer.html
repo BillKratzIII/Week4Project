@@ -17,17 +17,90 @@
 		</head>
 		<body>
 			<div id="header">
-				<a href="index.html"><img src="images/logo.png"></a>
-				<ul class="list-inline">
-					<li style="color:gray;">spacewhitespace</li>
-					<li><a href="index.html">Dashboard</a></li>
-    				<li><a href="addPlayer.html">Add a Player</a></li>
-   					<li><strong>Remove a Player</strong></li>
- 				</ul>
+				<img src="images/logo.png">
 			</div>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+             <a class="navbar-brand" href="index.html">MBFFL</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="addPlayer.html">Add A Player</a></li>
+            <li class="active"><a href="deletePlayer.html">Remove A Player</a></li>
+            <li><a href="modifyPlayer.html">Modify A Player</a></li>
+          </ul>
+        </div>
+      </nav>
 			<div class="container">
+				<form>
 				<h1>Remove a Player</h1>
-				<div class="well well-sm"><h3>Select the player you would like to remove:</h3></div>
+				<div class="well well-sm"><h3>Enter the player you would like to remove:</h3></div>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Player's First Name">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Player's Last Name">
+          </div>
+          <h5><strong>Position</strong></h5>
+          <label class="radio-inline">
+              <input type="radio" name="position" id="position1" value="option1"> Quarterback
+          </label>
+          <label class="radio-inline">
+              <input type="radio" name="position" id="position2" value="option2"> Running Back
+          </label>
+          <label class="radio-inline">
+              <input type="radio" name="position" id="position3" value="option3"> Wide Receiver
+          </label>
+          <label class="radio-inline">
+              <input type="radio" name="position" id="position4" value="option4"> Tight End
+          </label>
+          <label class="radio-inline">
+              <input type="radio" name="position" id="position5" value="option5"> Kicker
+          </label>
+          <label class="radio-inline">
+              <input type="radio" name="position" id="position6" value="option6"> Team Defense
+          </label>
+				
+				<h5><strong>Team</strong></h5>
+        <select class="form-control">
+          <option>Arizona Cardinals</option>
+          <option>Atlanta Falcons</option>
+          <option>Baltimore Ravens</option>
+          <option>Buffalo Bills</option>
+          <option>Carolina Panthers</option>
+          <option>Chicago Bears</option>
+          <option>Cincinatti Bengals</option>
+          <option>Cleveland Browns</option>
+          <option>Dallas Cowboys</option>
+          <option>Denver Broncos</option>
+          <option>Detroit Lions</option>
+          <option>Green Bay Packers</option>
+          <option>Houston Texans</option>
+          <option>Indianapolis Colts</option>
+          <option>Jacksonville Jaguars</option>
+          <option>Kansas City Chiefs</option>
+          <option>Los Angelas Rams</option>
+          <option>Miami Dolphins</option>
+          <option>Minnesota Vikings</option>
+          <option>New England Patriots</option>
+          <option>New Orleans Saints</option>
+          <option>New York Giants</option>
+          <option>New York Jets</option>
+          <option>Oakland Raiders</option>
+          <option>Philidelphia Eagles</option>
+          <option>Pittsburg Stealers</option>
+          <option>San Diego Chargers</option>
+          <option>San Francisco 49ers</option>
+          <option>Seattle Seahawks</option>
+          <option>Tampa Bay Bucaneers</option>
+          <option>Tennesse Titans</option>
+          <option>Washington Redskins</option>
+        </select>
+        <button type="submit" class="btn btn-default">Submit</button>
+        </form>
 			</div>
 		</body>
 	</html>

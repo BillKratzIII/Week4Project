@@ -1,6 +1,11 @@
 package com.football;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -60,32 +65,35 @@ public class DAO {
 			RES_SET = STMT.executeQuery("SELECT * FROM football.2015_stats;");
 			 
 			while(RES_SET.next()){
-				int[] temp = new int[11];
-				temp[0] = RES_SET.getInt("pa_yds");
-				temp[1] = RES_SET.getInt("pa_tds");
-				temp[2] = RES_SET.getInt("pa_int");
-				temp[3] = RES_SET.getInt("ru_yds");
-				temp[4] = RES_SET.getInt("ru_tds");
-				temp[5] = RES_SET.getInt("receptions");
-				temp[6] = RES_SET.getInt("rec_yds");
-				temp[7] = RES_SET.getInt("rec_tds");
-				temp[8] = RES_SET.getInt("ret_tds");
-				temp[9] = RES_SET.getInt("two_pt_conv");
-				temp[10] = RES_SET.getInt("fum_lost");
+				StatLine sl = new StatLine();
+				sl.setPlayerID(allPlayers.get(counter).getPlayerID());
+				sl.setLabel("totals2015");
+				sl.setPassingYards(RES_SET.getInt("pa_yds"));
+				sl.setPassingTDs(RES_SET.getInt("pa_tds"));
+				sl.setPassingINTs(RES_SET.getInt("pa_int"));
+				sl.setRuYards(RES_SET.getInt("ru_yds"));
+				sl.setRuTDs(RES_SET.getInt("ru_tds"));
+				sl.setReceptions(RES_SET.getInt("receptions"));
+				sl.setRecYards(RES_SET.getInt("rec_yds"));
+				sl.setRecTDs(RES_SET.getInt("rec_tds"));
+				sl.setRetTDs(RES_SET.getInt("ret_tds"));
+				sl.setTwoPtConv(RES_SET.getInt("two_pt_conv"));
+				sl.setFumbLost(RES_SET.getInt("fum_lost"));
 						
 				
-				allPlayers.get(counter).setTotals2015(temp);
+				allPlayers.get(counter).addStatLines(sl);
+				allPlayers.get(counter).addToHashMap("2015 total fantasy points", allPlayers.get(counter).calcTotalScore(sl));
 				counter++;
 			}
 			
 			//for each loop
 			for(FantasyPlayer player : allPlayers){
-				player.calcTotalScore();
+				player.setTotalPoints2015(player.calcTotalScore((player.getStatLines(0))));
 				System.out.println(player.toString());
 			}
 			
 			for (FantasyPlayer fantasyPlayer : allPlayers) {
-				fantasyPlayer.printArray();
+				System.out.println(fantasyPlayer.getStatLines(0).toString());
 			}
 			
 			
@@ -267,22 +275,22 @@ public class DAO {
 			System.out.println("No player found by that name.");
 		}else{
 			System.out.println(playerIDToDelete);
-		}
 		
-		connToDB();
+			connToDB();
 		
-		try{
-			PREP_STMT = CONN.prepareStatement(deleteFromDB1);
-			PREP_STMT.setString(1, playerIDToDelete);
-			PREP_STMT.executeUpdate(); 
-			PREP_STMT = CONN.prepareStatement(deleteFromDB2);
-			PREP_STMT.setString(1, playerIDToDelete);
-			PREP_STMT.executeUpdate();
-			System.out.println("Player deleted");
-		}catch (SQLException e){
-			 e.printStackTrace();
+			try{
+				PREP_STMT = CONN.prepareStatement(deleteFromDB1);
+				PREP_STMT.setString(1, playerIDToDelete);
+				PREP_STMT.executeUpdate(); 
+				PREP_STMT = CONN.prepareStatement(deleteFromDB2);
+				PREP_STMT.setString(1, playerIDToDelete);
+				PREP_STMT.executeUpdate();
+				System.out.println("Player deleted");
+			}catch (SQLException e){
+				e.printStackTrace();
+			}
+			refreshFromDB();
 		}
-		refreshFromDB();
 	}//end method
 	
 	private static String modifyInDB = "UPDATE `football`.`players`"
@@ -311,43 +319,38 @@ public class DAO {
 		if(playerIDToModify == null){
 			System.out.println("No player found by that name.");
 		}else{
+			System.out.println("Player found");
 			System.out.println(playerIDToModify);
+			System.out.println("What is the new NFL team for this player?");
+			newTeam = sc.nextLine();
+			connToDB();
+		
+			try{
+				PREP_STMT = CONN.prepareStatement(modifyInDB);
+
+				PREP_STMT.setString(1, newTeam);
+				PREP_STMT.setString(2, playerIDToModify);
+            
+				PREP_STMT.executeUpdate();    
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+			refreshFromDB();
 		}
-		
-		System.out.println("What is the new NFL team for this player?");
-		newTeam = sc.nextLine();
-		connToDB();
-		
-		try{
-            PREP_STMT = CONN.prepareStatement(modifyInDB);
-            
-            PREP_STMT.setString(1, newTeam);
-            PREP_STMT.setString(2, playerIDToModify);
-            
-            PREP_STMT.executeUpdate();    
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-		
-		refreshFromDB();
 	}
 	
 	public static FantasyPlayer modifyPlayer(){
-		FantasyPlayer playerToDelete = new FantasyPlayer();
+		FantasyPlayer playerToModify = new FantasyPlayer();
         
 		System.out.println("What is the last name of the player you wish to modify?");
-		playerToDelete.setLastName(sc.nextLine());
+		playerToModify.setLastName(sc.nextLine());
 		System.out.println("What is the first name of the player you wish to modify?");
-		playerToDelete.setFirstName(sc.nextLine());
+		playerToModify.setFirstName(sc.nextLine());
 			    
-		return playerToDelete;
+		return playerToModify;
 	}
-	
-	
-	
-	
 	
 	public static void refreshFromDB(){
 		allPlayers.clear();
@@ -379,24 +382,26 @@ public class DAO {
 			RES_SET = STMT.executeQuery("SELECT * FROM football.2015_stats;");
 			 
 			while(RES_SET.next()){
-				int[] temp = new int[11];
-				temp[0] = RES_SET.getInt("pa_yds");
-				temp[1] = RES_SET.getInt("pa_tds");
-				temp[2] = RES_SET.getInt("pa_int");
-				temp[3] = RES_SET.getInt("ru_yds");
-				temp[4] = RES_SET.getInt("ru_tds");
-				temp[5] = RES_SET.getInt("receptions");
-				temp[6] = RES_SET.getInt("rec_yds");
-				temp[7] = RES_SET.getInt("rec_tds");
-				temp[8] = RES_SET.getInt("ret_tds");
-				temp[9] = RES_SET.getInt("two_pt_conv");
-				temp[10] = RES_SET.getInt("fum_lost");
+				StatLine sl = new StatLine();
+				sl.setPlayerID(allPlayers.get(counter).getPlayerID());
+				sl.setLabel("totals2015");
+				sl.setPassingYards(RES_SET.getInt("pa_yds"));
+				sl.setPassingTDs(RES_SET.getInt("pa_tds"));
+				sl.setPassingINTs(RES_SET.getInt("pa_int"));
+				sl.setRuYards(RES_SET.getInt("ru_yds"));
+				sl.setRuTDs(RES_SET.getInt("ru_tds"));
+				sl.setReceptions(RES_SET.getInt("receptions"));
+				sl.setRecYards(RES_SET.getInt("rec_yds"));
+				sl.setRecTDs(RES_SET.getInt("rec_tds"));
+				sl.setRetTDs(RES_SET.getInt("ret_tds"));
+				sl.setTwoPtConv(RES_SET.getInt("two_pt_conv"));
+				sl.setFumbLost(RES_SET.getInt("fum_lost"));
 						
 				
-				allPlayers.get(counter).setTotals2015(temp);
+				allPlayers.get(counter).addStatLines(sl);
+				allPlayers.get(counter).addToHashMap("2015 total fantasy points", allPlayers.get(counter).calcTotalScore(sl));
 				counter++;
 			}
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
