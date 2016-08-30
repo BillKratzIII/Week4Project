@@ -33,72 +33,18 @@
         </div>
       </nav>
 			<div class="container">
-				<form>
+				<form action="deleteFromDB" method="post" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
 				<h1>Remove a Player</h1>
 				<div class="well well-sm"><h3>Enter the player you would like to remove:</h3></div>
         <div class="form-group">
             <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="Player's First Name">
+            <input type="text" class="form-control" id="firstName" placeholder="Player's First Name" name="firstName">
           </div>
           <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Player's Last Name">
+            <input type="text" class="form-control" id="lastName" placeholder="Player's Last Name" name="lastName">
           </div>
-          <h5><strong>Position</strong></h5>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position1" value="option1"> Quarterback
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position2" value="option2"> Running Back
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position3" value="option3"> Wide Receiver
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position4" value="option4"> Tight End
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position5" value="option5"> Kicker
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position6" value="option6"> Team Defense
-          </label>
-				
-				<h5><strong>Team</strong></h5>
-        <select class="form-control">
-          <option>Arizona Cardinals</option>
-          <option>Atlanta Falcons</option>
-          <option>Baltimore Ravens</option>
-          <option>Buffalo Bills</option>
-          <option>Carolina Panthers</option>
-          <option>Chicago Bears</option>
-          <option>Cincinatti Bengals</option>
-          <option>Cleveland Browns</option>
-          <option>Dallas Cowboys</option>
-          <option>Denver Broncos</option>
-          <option>Detroit Lions</option>
-          <option>Green Bay Packers</option>
-          <option>Houston Texans</option>
-          <option>Indianapolis Colts</option>
-          <option>Jacksonville Jaguars</option>
-          <option>Kansas City Chiefs</option>
-          <option>Los Angelas Rams</option>
-          <option>Miami Dolphins</option>
-          <option>Minnesota Vikings</option>
-          <option>New England Patriots</option>
-          <option>New Orleans Saints</option>
-          <option>New York Giants</option>
-          <option>New York Jets</option>
-          <option>Oakland Raiders</option>
-          <option>Philidelphia Eagles</option>
-          <option>Pittsburg Stealers</option>
-          <option>San Diego Chargers</option>
-          <option>San Francisco 49ers</option>
-          <option>Seattle Seahawks</option>
-          <option>Tampa Bay Bucaneers</option>
-          <option>Tennesse Titans</option>
-          <option>Washington Redskins</option>
-        </select>
+          
         <button type="submit" class="btn btn-default">Submit</button>
         </form>
 			</div>

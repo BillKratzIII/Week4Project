@@ -155,23 +155,23 @@ public class FantasyPlayer {
 		total -= ((double) sl.getFumbLost() * 2);// -2pts per fumble lost
 		return total;
 	}// calcTotalScore()
-	
-	//method to add total scores to hash map
-	public void addToHashMap(String label, double total){
+
+	// method to add total scores to hash map
+	public void addToHashMap(String label, String total) {
 		summary.put(label, total);
 	}
-	
-	//method to print total scores contained in the hash map
-	public void printSummary(){
+
+	// method to print total scores contained in the hash map
+	public void printSummary() {
 		Set set = summary.entrySet();
 		Iterator i = set.iterator();
-		while(i.hasNext()) {
-	         Map.Entry me = (Map.Entry)i.next();
-	         System.out.print(me.getKey() + ": ");
-	         System.out.println(me.getValue());
-	      }
-	      System.out.println();
-	}//printSummary()
+		while (i.hasNext()) {
+			Map.Entry me = (Map.Entry) i.next();
+			System.out.print(me.getKey() + ": ");
+			System.out.println(me.getValue());
+		}
+		System.out.println();
+	}// printSummary()
 
 	// method to display player attributes to user
 	@Override

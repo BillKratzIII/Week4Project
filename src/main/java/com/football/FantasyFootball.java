@@ -25,10 +25,10 @@ public class FantasyFootball {
 				DAO.readFromDB();
 				break;
 			case "2":
-				DAO.writeToDB();
+				//DAO.writeToDB();
 				break;
 			case "3":
-				DAO.deleteFromDB();
+				//DAO.deleteFromDB();
 				break;
 			case "4":
 				DAO.modifyInDB();
@@ -43,7 +43,7 @@ public class FantasyFootball {
 			}// switch
 
 		} while (continueApp);
-		//close scanner
+		// close scanner
 		sc.close();
 	}// main()
 

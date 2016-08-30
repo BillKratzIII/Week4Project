@@ -1,105 +1,175 @@
 <!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<meta charset="utf-8"> 
-    		<meta name="viewport" content="width=device-width, initial-scale=1">
-   			 <!-- Latest compiled and minified CSS -->
-			<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-			<!-- jQuery library -->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-			<!-- Latest compiled JavaScript -->
-			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-			<link rel="stylesheet" type="text/css" href="styles.css">
-			<title>ADD A PLAYER</title>
-		</head>
-		<body>
-			<div id="header">
-        <img src="images/logo.png">
-      </div>
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-             <a class="navbar-brand" href="index.html">MBFFL</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li><a href="index.html">Dashboard</a></li>
-            <li class="active"><a href="addPlayer.html">Add A Player</a></li>
-            <li><a href="deletePlayer.html">Remove A Player</a></li>
-            <li><a href="modifyPlayer.html">Modify A Player</a></li>
-          </ul>
-        </div>
-      </nav>
-			<div class="container">
-        <form>
-				<h1>Add a Player</h1>
-				<div class="well well-sm"><h3>Enter information for the player you would like to add:</h3></div>
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="Player's First Name">
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Player's Last Name">
-          </div>
-          <h5><strong>Position</strong></h5>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position1" value="option1"> Quarterback
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position2" value="option2"> Running Back
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position3" value="option3"> Wide Receiver
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position4" value="option4"> Tight End
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position5" value="option5"> Kicker
-          </label>
-          <label class="radio-inline">
-              <input type="radio" name="position" id="position6" value="option6"> Team Defense
-          </label>
-				
-				<h5><strong>Team</strong></h5>
-        <select class="form-control">
-          <option>Arizona Cardinals</option>
-          <option>Atlanta Falcons</option>
-          <option>Baltimore Ravens</option>
-          <option>Buffalo Bills</option>
-          <option>Carolina Panthers</option>
-          <option>Chicago Bears</option>
-          <option>Cincinatti Bengals</option>
-          <option>Cleveland Browns</option>
-          <option>Dallas Cowboys</option>
-          <option>Denver Broncos</option>
-          <option>Detroit Lions</option>
-          <option>Green Bay Packers</option>
-          <option>Houston Texans</option>
-          <option>Indianapolis Colts</option>
-          <option>Jacksonville Jaguars</option>
-          <option>Kansas City Chiefs</option>
-          <option>Los Angelas Rams</option>
-          <option>Miami Dolphins</option>
-          <option>Minnesota Vikings</option>
-          <option>New England Patriots</option>
-          <option>New Orleans Saints</option>
-          <option>New York Giants</option>
-          <option>New York Jets</option>
-          <option>Oakland Raiders</option>
-          <option>Philidelphia Eagles</option>
-          <option>Pittsburg Stealers</option>
-          <option>San Diego Chargers</option>
-          <option>San Francisco 49ers</option>
-          <option>Seattle Seahawks</option>
-          <option>Tampa Bay Bucaneers</option>
-          <option>Tennesse Titans</option>
-          <option>Washington Redskins</option>
-        </select>
-        <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+<!-- Latest compiled JavaScript -->
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>ADD A PLAYER</title>
+</head>
+<body>
+	<div id="header">
+		<img src="images/logo.png">
+	</div>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">MBFFL</a>
 			</div>
-		</body>
-	</html>
+			<ul class="nav navbar-nav">
+				<li><a href="index.html">Dashboard</a></li>
+				<li class="active"><a href="addPlayer.html">Add A Player</a></li>
+				<li><a href="deletePlayer.html">Remove A Player</a></li>
+				<li><a href="modifyPlayer.html">Modify A Player</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+
+		<form action="addToDB" method="post" onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
+			<h1>Add a Player</h1>
+			<div class="well well-sm">
+				<h3>Enter information for the player you would like to add:</h3>
+			</div>
+			<div class="form-group">
+				<label for="firstName">First Name</label> <input type="text" name = "firstName"
+					class="form-control" id="firstName"
+					placeholder="Player's First Name">
+			</div>
+			<div class="form-group">
+				<label for="lastName">Last Name</label> <input type="text" name = "lastName"
+					class="form-control" id="lastName" placeholder="Player's Last Name">
+			</div>
+			<h5>
+				<strong>Position</strong>
+			</h5>
+			  
+			<label class="radio-inline"> <input type="radio"
+				name="position" id="position1" value="QB"> Quarterback
+			</label> <label class="radio-inline"> <input type="radio"
+				name="position" id="position2" value="RB"> Running Back
+			</label> <label class="radio-inline"> <input type="radio"
+				name="position" id="position3" value="WR"> Wide
+				Receiver
+			</label> <label class="radio-inline"> <input type="radio"
+				name="position" id="position4" value="TE"> Tight End
+			</label> <label class="radio-inline"> <input type="radio"
+				name="position" id="position5" value="K"> Kicker
+			</label> <label class="radio-inline"> <input type="radio"
+				name="position" id="position6" value="DEF"> Team Defense
+			</label>
+
+			<h5>
+				<strong>Team</strong>
+			</h5>
+			<select class="form-control" name="nflTeam">
+				<option>Arizona Cardinals</option>
+				<option>Atlanta Falcons</option>
+				<option>Baltimore Ravens</option>
+				<option>Buffalo Bills</option>
+				<option>Carolina Panthers</option>
+				<option>Chicago Bears</option>
+				<option>Cincinatti Bengals</option>
+				<option>Cleveland Browns</option>
+				<option>Dallas Cowboys</option>
+				<option>Denver Broncos</option>
+				<option>Detroit Lions</option>
+				<option>Green Bay Packers</option>
+				<option>Houston Texans</option>
+				<option>Indianapolis Colts</option>
+				<option>Jacksonville Jaguars</option>
+				<option>Kansas City Chiefs</option>
+				<option>Los Angelas Rams</option>
+				<option>Miami Dolphins</option>
+				<option>Minnesota Vikings</option>
+				<option>New England Patriots</option>
+				<option>New Orleans Saints</option>
+				<option>New York Giants</option>
+				<option>New York Jets</option>
+				<option>Oakland Raiders</option>
+				<option>Philidelphia Eagles</option>
+				<option>Pittsburg Stealers</option>
+				<option>San Diego Chargers</option>
+				<option>San Francisco 49ers</option>
+				<option>Seattle Seahawks</option>
+				<option>Tampa Bay Bucaneers</option>
+				<option>Tennesse Titans</option>
+				<option>Washington Redskins</option>
+			</select>
+			<div class="well well-sm">
+				<h3>Enter the player's 2015 stats:</h3>
+			</div>
+			<div class="form-group">
+				<label for="paYds">Passing Yards</label> <input type="number" name = "paYds"
+					class="form-control" id="paYds"
+					placeholder="Passing Yards">
+			</div>
+			<div class="form-group">
+				<label for="paTds">Passing Touchdowns</label> <input type="number" name = "paTds"
+					class="form-control" id="paTds"
+					placeholder="Passing Touchdowns">
+			</div>
+			<div class="form-group">
+				<label for="paInts">Passing Interceptions</label> <input type="number" name = "paInts"
+					class="form-control" id="paInts"
+					placeholder="Passing Interceptions">
+			</div>
+			<div class="form-group">
+				<label for="ruYds">Rushing Yards</label> <input type="number" name = "ruYds"
+					class="form-control" id="ruYds"
+					placeholder="Rushing Yards">
+			</div>
+			<div class="form-group">
+				<label for="ruTds">Rushing Touchdowns</label> <input type="number" name = "ruTds"
+					class="form-control" id="ruTds"
+					placeholder="Rushing Touchdowns">
+			</div>
+			<div class="form-group">
+				<label for="receptions">Receptions</label> <input type="number" name = "receptions"
+					class="form-control" id="receptions"
+					placeholder="Receptions">
+			</div>
+			<div class="form-group">
+				<label for="recYds">Receiving Yards</label> <input type="number" name = "recYds"
+					class="form-control" id="recYds"
+					placeholder="Receiving Yards">
+			</div>
+			<div class="form-group">
+				<label for="recTds">Receiving Touchdowns</label> <input type="number" name = "recTds"
+					class="form-control" id="recTds"
+					placeholder="Receiving Touchdowns">
+			</div>
+			<div class="form-group">
+				<label for="retTds">Return Touchdowns</label> <input type="number" name = "retTds"
+					class="form-control" id="retTds"
+					placeholder="Return Touchdowns">
+			</div>
+			<div class="form-group">
+				<label for="twoPtConv">Two Point Conversions</label> <input type="number" name = "twoPtConv"
+					class="form-control" id="twoPtConv"
+					placeholder="Two Point Conversions">
+			</div>
+			<div class="form-group">
+				<label for="fumbLost">Fumbles Lost</label> <input type="number" name = "fumbLost"
+					class="form-control" id="fumbLost"
+					placeholder="Fumbles Lost">
+			</div>
+			
+			
+			
+		<button type="submit" value="Submit" class="btn btn-default">Submit</button>
+		</form>
+		
+	</div>
+</body>
+</html>
